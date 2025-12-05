@@ -2,6 +2,19 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { useRef, useMemo, useState, useEffect } from "react";
 import * as THREE from "three";
 
+// Check if WebGL is available
+const isWebGLAvailable = (): boolean => {
+  try {
+    const canvas = document.createElement("canvas");
+    return !!(
+      window.WebGLRenderingContext &&
+      (canvas.getContext("webgl") || canvas.getContext("experimental-webgl"))
+    );
+  } catch (e) {
+    return false;
+  }
+};
+
 interface ParticlesProps {
   count: number;
   mouse: { x: number; y: number };
@@ -127,11 +140,48 @@ const ChartMesh = ({ mouse }: { mouse: { x: number; y: number } }) => {
   );
 };
 
+// CSS-only fallback component when WebGL is not available
+const FallbackScene = () => {
+  return (
+    <div className="absolute inset-0 -z-10 overflow-hidden">
+      {/* Animated gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-neon-blue/5" />
+      
+      {/* Floating particles using CSS */}
+      <div className="absolute inset-0">
+        {Array.from({ length: 30 }).map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 rounded-full bg-neon-blue/40 animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 2}s`,
+              animationDuration: `${2 + Math.random() * 3}s`,
+            }}
+          />
+        ))}
+      </div>
+      
+      {/* Grid lines for chart feel */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(31,182,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(31,182,255,0.1)_1px,transparent_1px)] bg-[size:60px_60px]" />
+      </div>
+      
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background pointer-events-none" />
+    </div>
+  );
+};
+
 const HeroScene = () => {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const [isReady, setIsReady] = useState(false);
+  const [webGLSupported, setWebGLSupported] = useState(true);
 
   useEffect(() => {
+    setWebGLSupported(isWebGLAvailable());
+    
     const handleMouseMove = (e: MouseEvent) => {
       setMouse({
         x: (e.clientX / window.innerWidth) * 2 - 1,
@@ -146,12 +196,20 @@ const HeroScene = () => {
 
   if (!isReady) return null;
 
+  // Use fallback if WebGL is not supported
+  if (!webGLSupported) {
+    return <FallbackScene />;
+  }
+
   return (
     <div className="absolute inset-0 -z-10">
       <Canvas
         camera={{ position: [0, 0, 5], fov: 60 }}
         gl={{ antialias: true, alpha: true }}
         dpr={[1, 2]}
+        onCreated={({ gl }) => {
+          gl.setClearColor(0x000000, 0);
+        }}
       >
         <ambientLight intensity={0.2} />
         <Particles count={500} mouse={mouse} />
