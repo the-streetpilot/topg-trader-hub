@@ -7,10 +7,10 @@ import heroBg from "@/assets/hero-bg.png";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen overflow-hidden pt-32 pb-20">
+    <section className="relative min-h-screen overflow-hidden pt-24 pb-12 sm:pt-32 sm:pb-20">
       {/* Background image */}
       <div 
-        className="absolute inset-0 -z-20 opacity-40"
+        className="absolute inset-0 -z-20 opacity-30 dark:opacity-40"
         style={{ 
           backgroundImage: `url(${heroBg})`,
           backgroundSize: 'cover',
@@ -23,30 +23,30 @@ const Hero = () => {
         <div className="mx-auto max-w-4xl text-center">
           {/* Trust badges */}
           <motion.div
-            className="mb-8 flex flex-wrap items-center justify-center gap-4 text-sm"
+            className="mb-6 flex flex-wrap items-center justify-center gap-2 text-xs sm:mb-8 sm:gap-4 sm:text-sm"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.2, 0.9, 0.2, 1] }}
           >
-            <div className="flex items-center gap-1.5 rounded-full border border-border/50 bg-card/50 px-4 py-1.5 backdrop-blur-sm">
-              <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+            <div className="flex items-center gap-1.5 rounded-full border border-border/50 bg-card/50 px-3 py-1 backdrop-blur-sm sm:px-4 sm:py-1.5">
+              <Star className="h-3 w-3 fill-yellow-400 text-yellow-400 sm:h-4 sm:w-4" />
               <span className="font-medium text-foreground">4.8</span>
               <span className="text-muted-foreground">• 600+ Reviews</span>
             </div>
-            <div className="rounded-full border border-border/50 bg-card/50 px-4 py-1.5 text-muted-foreground backdrop-blur-sm">
-              <span className="font-medium text-foreground">50K+</span> traders on board
+            <div className="rounded-full border border-border/50 bg-card/50 px-3 py-1 text-muted-foreground backdrop-blur-sm sm:px-4 sm:py-1.5">
+              <span className="font-medium text-foreground">50K+</span> traders
             </div>
-            <div className="rounded-full border border-border/50 bg-card/50 px-4 py-1.5 text-muted-foreground backdrop-blur-sm">
+            <div className="hidden rounded-full border border-border/50 bg-card/50 px-3 py-1 text-muted-foreground backdrop-blur-sm sm:block sm:px-4 sm:py-1.5">
               <span className="font-medium text-foreground">20.2B+</span> trades journaled
             </div>
           </motion.div>
 
           {/* Headline */}
           <motion.h1
-            className="mb-6 text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl lg:text-6xl"
+            className="mb-4 text-2xl font-bold leading-tight tracking-tight text-foreground sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.2, 0.9, 0.2, 1] }}
           >
             Everything you ever wanted to know about your trading...{" "}
             <span className="gradient-text-blue">but your spreadsheets never told you.</span>
@@ -54,26 +54,26 @@ const Hero = () => {
 
           {/* Subheadline */}
           <motion.p
-            className="mx-auto mb-10 max-w-2xl text-lg text-muted-foreground sm:text-xl"
+            className="mx-auto mb-8 max-w-2xl text-base text-muted-foreground sm:mb-10 sm:text-lg md:text-xl"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.8, delay: 0.4, ease: [0.2, 0.9, 0.2, 1] }}
           >
             TopG shows you the metrics that matter — and the behaviors that lead to profit.
           </motion.p>
 
           {/* CTAs */}
           <motion.div
-            className="flex flex-col items-center justify-center gap-4 sm:flex-row"
+            className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
+            transition={{ duration: 0.8, delay: 0.5, ease: [0.2, 0.9, 0.2, 1] }}
           >
-            <Button variant="neon" size="lg" className="min-w-[200px] text-base">
+            <Button variant="neon" size="lg" className="w-full min-w-[180px] text-sm sm:w-auto sm:min-w-[200px] sm:text-base">
               Get Started Now
             </Button>
-            <Button variant="ghost" size="lg" className="group min-w-[200px] text-base text-muted-foreground hover:text-foreground">
-              <Play className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
+            <Button variant="ghost" size="lg" className="group w-full min-w-[180px] text-sm text-muted-foreground hover:text-foreground sm:w-auto sm:min-w-[200px] sm:text-base">
+              <Play className="mr-2 h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
               View Demo
             </Button>
           </motion.div>
@@ -81,10 +81,10 @@ const Hero = () => {
 
         {/* Stats strip */}
         <motion.div
-          className="mx-auto mt-24 grid max-w-5xl grid-cols-2 gap-6 sm:grid-cols-4"
+          className="mx-auto mt-12 grid max-w-5xl grid-cols-2 gap-3 sm:mt-24 sm:gap-6 lg:grid-cols-4"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
+          transition={{ duration: 0.8, delay: 0.7, ease: [0.2, 0.9, 0.2, 1] }}
         >
           {[
             { value: 20.2, suffix: "B+", label: "Trades Journaled" },
@@ -94,17 +94,18 @@ const Hero = () => {
           ].map((stat, i) => (
             <motion.div
               key={stat.label}
-              className="neon-border-hover glass-card group rounded-xl p-6 text-center"
+              className="neon-border-hover glass-card group rounded-lg p-4 text-center sm:rounded-xl sm:p-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.8 + i * 0.1 }}
+              transition={{ duration: 0.5, delay: 0.8 + i * 0.1, ease: [0.2, 0.9, 0.2, 1] }}
               whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <div className="text-2xl font-bold text-foreground sm:text-3xl">
+              <div className="text-xl font-bold text-foreground sm:text-2xl md:text-3xl">
                 <CountUp end={stat.value} duration={2} delay={1 + i * 0.2} />
                 {stat.suffix}
               </div>
-              <div className="mt-1 text-sm text-muted-foreground">{stat.label}</div>
+              <div className="mt-1 text-xs text-muted-foreground sm:text-sm">{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>

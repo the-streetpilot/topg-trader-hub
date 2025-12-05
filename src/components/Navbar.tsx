@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
   {
@@ -128,7 +129,8 @@ const Navbar = () => {
         </nav>
 
         {/* CTA Buttons */}
-        <div className="hidden items-center gap-4 lg:flex">
+        <div className="hidden items-center gap-3 lg:flex">
+          <ThemeToggle />
           <a
             href="#"
             className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
@@ -204,6 +206,10 @@ const Navbar = () => {
                 </div>
               ))}
               <div className="mt-6 flex flex-col gap-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Theme</span>
+                  <ThemeToggle />
+                </div>
                 <Button variant="outline" size="lg" className="w-full">
                   Log In
                 </Button>
