@@ -15,8 +15,8 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "text-muted-foreground hover:bg-accent hover:text-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        neon: "relative bg-gradient-to-r from-neon-blue to-[hsl(220,100%,60%)] text-primary-foreground shadow-neon-blue hover:shadow-[0_0_30px_rgba(31,182,255,0.5),0_0_60px_rgba(31,182,255,0.25)] hover:scale-[1.02] active:scale-[0.98] before:absolute before:inset-0 before:rounded-lg before:bg-gradient-to-r before:from-neon-blue before:to-[hsl(220,100%,60%)] before:opacity-0 before:blur-xl before:transition-opacity hover:before:opacity-50",
-        neonGreen: "relative bg-gradient-to-r from-neon-green to-[hsl(140,70%,45%)] text-secondary-foreground shadow-neon-green hover:shadow-[0_0_30px_rgba(44,232,154,0.5),0_0_60px_rgba(44,232,154,0.25)] hover:scale-[1.02] active:scale-[0.98]",
+        neon: "relative bg-gradient-to-r from-neon-blue to-[hsl(220,100%,60%)] text-primary-foreground shadow-[0_0_8px_rgba(31,182,255,0.15)] hover:shadow-[0_0_30px_rgba(31,182,255,0.5),0_0_60px_rgba(31,182,255,0.25)] hover:scale-[1.02] active:scale-[0.98] before:absolute before:inset-0 before:rounded-lg before:bg-gradient-to-r before:from-neon-blue before:to-[hsl(220,100%,60%)] before:opacity-0 before:blur-xl before:transition-opacity hover:before:opacity-50",
+        neonGreen: "relative bg-gradient-to-r from-neon-green to-[hsl(140,70%,45%)] text-secondary-foreground shadow-[0_0_8px_rgba(44,232,154,0.15)] hover:shadow-[0_0_30px_rgba(44,232,154,0.5),0_0_60px_rgba(44,232,154,0.25)] hover:scale-[1.02] active:scale-[0.98]",
         glass: "glass-card border border-border/50 text-foreground hover:border-primary/30 hover:shadow-neon-blue",
       },
       size: {

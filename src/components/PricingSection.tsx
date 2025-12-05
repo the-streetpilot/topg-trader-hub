@@ -74,12 +74,20 @@ const PricingSection = () => {
             Pricing
           </motion.span>
           <motion.h2
-            className="mb-4 text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            className="mb-4 text-4xl font-extrabold text-foreground sm:text-5xl lg:text-6xl"
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 20, scale: 0.95 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.2, 0.9, 0.2, 1] }}
           >
-            Choose your <span className="gradient-text-blue">trading edge</span>
+            Choose your{" "}
+            <motion.span 
+              className="gradient-text-blue inline-block"
+              initial={{ opacity: 0, x: -20 }}
+              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              trading edge
+            </motion.span>
           </motion.h2>
           <motion.p
             className="mx-auto max-w-2xl text-lg text-muted-foreground"

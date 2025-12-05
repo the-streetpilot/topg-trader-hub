@@ -310,14 +310,22 @@ const FeatureSection = () => {
             Features
           </motion.span>
           <motion.h2
-            className="text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            className="text-4xl font-extrabold text-foreground sm:text-5xl lg:text-6xl"
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.2, 0.9, 0.2, 1] }}
           >
             Everything you need to{" "}
-            <span className="gradient-text-blue">master your trading</span>
+            <motion.span 
+              className="gradient-text-blue inline-block"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              master your trading
+            </motion.span>
           </motion.h2>
         </div>
 

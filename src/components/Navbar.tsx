@@ -150,17 +150,30 @@ const Navbar = () => {
         </button>
       </div>
 
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            className="fixed inset-0 top-[60px] z-30 bg-black/50 lg:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="fixed inset-0 top-[60px] z-40 bg-background/98 backdrop-blur-xl lg:hidden"
+            className="fixed right-0 top-[60px] z-40 h-[calc(100vh-60px)] w-3/4 max-w-[300px] border-l border-border/30 bg-background/80 backdrop-blur-xl lg:hidden"
             initial={{ opacity: 0, x: "100%" }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ duration: 0.3, ease: [0.2, 0.9, 0.2, 1] }}
           >
-            <nav className="container mx-auto flex flex-col gap-2 p-6">
+            <nav className="flex h-full flex-col gap-2 overflow-y-auto p-6">
               {navItems.map((item) => (
                 <div key={item.label}>
                   {item.items ? (

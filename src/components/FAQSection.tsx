@@ -1,5 +1,5 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -45,6 +45,7 @@ const faqs = [
 const FAQSection = () => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   return (
     <section id="faq" className="relative py-20" ref={ref}>
@@ -60,12 +61,20 @@ const FAQSection = () => {
             FAQ
           </motion.span>
           <motion.h2
-            className="mb-4 text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            className="mb-4 text-4xl font-extrabold text-foreground sm:text-5xl lg:text-6xl"
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 20, scale: 0.95 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.2, 0.9, 0.2, 1] }}
           >
-            Frequently asked <span className="gradient-text-blue">questions</span>
+            Frequently asked{" "}
+            <motion.span 
+              className="gradient-text-blue inline-block"
+              initial={{ opacity: 0, x: -20 }}
+              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              questions
+            </motion.span>
           </motion.h2>
         </div>
 
@@ -76,12 +85,14 @@ const FAQSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <Accordion type="single" collapsible className="space-y-4">
+          <Accordion type="single" collapsible value={hoveredItem || undefined} className="space-y-4">
             {faqs.map((faq, index) => (
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
                 className="glass-card neon-border-hover rounded-xl border-none px-6"
+                onMouseEnter={() => setHoveredItem(`item-${index}`)}
+                onMouseLeave={() => setHoveredItem(null)}
               >
                 <AccordionTrigger className="py-5 text-left text-base font-semibold text-foreground hover:no-underline [&[data-state=open]>svg]:text-primary">
                   {faq.question}
