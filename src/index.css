@@ -4,6 +4,79 @@
 
 @layer base {
   :root {
+    /* TopG Light Theme - White, Red, Black */
+    --background: 0 0% 98%;
+    --foreground: 0 0% 5%;
+
+    /* Card & Surface */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 5%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 5%;
+
+    /* Brand Colors - Red accent for light mode */
+    --primary: 0 85% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 100%;
+
+    --destructive: 0 85% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Muted & Accent */
+    --muted: 0 0% 92%;
+    --muted-foreground: 0 0% 40%;
+
+    --accent: 0 0% 95%;
+    --accent-foreground: 0 0% 5%;
+
+    /* Neon Colors - Red theme for light */
+    --neon-blue: 0 85% 50%;
+    --neon-green: 0 0% 10%;
+    --neon-red: 0 85% 50%;
+    
+    /* RGB variants for glow effects */
+    --neon-blue-rgb: 217, 38, 38;
+    --neon-green-rgb: 26, 26, 26;
+    --neon-red-rgb: 217, 38, 38;
+
+    /* Glass effect */
+    --glass: 0 0% 0% / 0.03;
+    --glass-border: 0 0% 0% / 0.1;
+
+    /* System */
+    --border: 0 0% 88%;
+    --input: 0 0% 92%;
+    --ring: 0 85% 50%;
+
+    --radius: 0.75rem;
+
+    /* Gradients */
+    --gradient-dark: linear-gradient(180deg, hsl(0 0% 98%) 0%, hsl(0 0% 95%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(0 0% 97%) 100%);
+    --gradient-neon-blue: linear-gradient(135deg, hsl(0 85% 50%) 0%, hsl(0 70% 40%) 100%);
+    --gradient-neon-green: linear-gradient(135deg, hsl(0 0% 10%) 0%, hsl(0 0% 20%) 100%);
+
+    /* Shadows */
+    --shadow-card: 0 8px 40px rgba(0, 0, 0, 0.1);
+    --shadow-neon-blue: 0 0 20px rgba(var(--neon-blue-rgb), 0.2);
+    --shadow-neon-green: 0 0 20px rgba(var(--neon-green-rgb), 0.2);
+    --shadow-neon-red: 0 0 20px rgba(var(--neon-red-rgb), 0.2);
+
+    /* Sidebar (keeping for compatibility) */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 0 0% 5%;
+    --sidebar-primary: 0 85% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 95%;
+    --sidebar-accent-foreground: 0 0% 5%;
+    --sidebar-border: 0 0% 88%;
+    --sidebar-ring: 0 85% 50%;
+  }
+
+  .dark {
     /* TopG Dark Theme - Primary Backgrounds */
     --background: 240 10% 2%;
     --foreground: 0 0% 100%;
@@ -51,8 +124,6 @@
     --input: 220 15% 12%;
     --ring: 197 100% 56%;
 
-    --radius: 0.75rem;
-
     /* Gradients */
     --gradient-dark: linear-gradient(180deg, hsl(220 20% 8%) 0%, hsl(240 10% 2%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(240 10% 6%) 0%, hsl(240 10% 3%) 100%);
@@ -88,8 +159,13 @@
 
   body {
     @apply bg-background text-foreground font-poppins antialiased;
-    background: linear-gradient(180deg, hsl(220 20% 8%) 0%, hsl(240 10% 2%) 100%);
+    background: hsl(var(--background));
     background-attachment: fixed;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .dark body {
+    background: linear-gradient(180deg, hsl(220 20% 8%) 0%, hsl(240 10% 2%) 100%);
   }
 
   /* Custom scrollbar */
@@ -138,11 +214,19 @@
   /* Glass card effect */
   .glass-card {
     background: linear-gradient(145deg, 
-      hsl(var(--glass)) 0%, 
-      hsl(240 10% 3% / 0.8) 100%
+      hsl(var(--card)) 0%, 
+      hsl(var(--card) / 0.9) 100%
     );
     backdrop-filter: blur(20px);
     border: 1px solid hsl(var(--glass-border));
+    transition: all 0.3s cubic-bezier(0.2, 0.9, 0.2, 1);
+  }
+
+  .dark .glass-card {
+    background: linear-gradient(145deg, 
+      hsl(var(--glass)) 0%, 
+      hsl(240 10% 3% / 0.8) 100%
+    );
   }
 
   /* Neon border on hover */

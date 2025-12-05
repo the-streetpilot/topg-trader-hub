@@ -140,36 +140,98 @@ const ChartMesh = ({ mouse }: { mouse: { x: number; y: number } }) => {
   );
 };
 
-// CSS-only fallback component when WebGL is not available
+// Enhanced CSS-only fallback with always-active animations for mobile
 const FallbackScene = () => {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMove = (e: MouseEvent | TouchEvent) => {
+      const clientX = 'touches' in e ? e.touches[0]?.clientX : e.clientX;
+      const clientY = 'touches' in e ? e.touches[0]?.clientY : e.clientY;
+      if (clientX !== undefined && clientY !== undefined) {
+        setMousePos({
+          x: (clientX / window.innerWidth) * 2 - 1,
+          y: -(clientY / window.innerHeight) * 2 + 1,
+        });
+      }
+    };
+
+    window.addEventListener("mousemove", handleMove);
+    window.addEventListener("touchmove", handleMove);
+    return () => {
+      window.removeEventListener("mousemove", handleMove);
+      window.removeEventListener("touchmove", handleMove);
+    };
+  }, []);
+
   return (
     <div className="absolute inset-0 -z-10 overflow-hidden">
       {/* Animated gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-neon-blue/5" />
+      <div 
+        className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/10 transition-all duration-500"
+        style={{
+          transform: `translate(${mousePos.x * 10}px, ${mousePos.y * 10}px)`,
+        }}
+      />
       
-      {/* Floating particles using CSS */}
+      {/* Floating particles using CSS - always active */}
       <div className="absolute inset-0">
-        {Array.from({ length: 30 }).map((_, i) => (
+        {Array.from({ length: 40 }).map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 rounded-full bg-neon-blue/40 animate-pulse"
+            className="absolute rounded-full bg-primary/30"
             style={{
+              width: `${2 + Math.random() * 4}px`,
+              height: `${2 + Math.random() * 4}px`,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
+              animation: `float ${3 + Math.random() * 4}s ease-in-out infinite`,
               animationDelay: `${Math.random() * 2}s`,
-              animationDuration: `${2 + Math.random() * 3}s`,
+              transform: `translate(${mousePos.x * (10 + i * 0.5)}px, ${mousePos.y * (10 + i * 0.5)}px)`,
+              transition: 'transform 0.3s ease-out',
             }}
           />
         ))}
       </div>
       
-      {/* Grid lines for chart feel */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(31,182,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(31,182,255,0.1)_1px,transparent_1px)] bg-[size:60px_60px]" />
+      {/* Grid lines for chart feel - with parallax */}
+      <div 
+        className="absolute inset-0 opacity-20"
+        style={{
+          transform: `translate(${mousePos.x * 5}px, ${mousePos.y * 5}px)`,
+          transition: 'transform 0.3s ease-out',
+        }}
+      >
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(var(--neon-blue-rgb),0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(var(--neon-blue-rgb),0.15)_1px,transparent_1px)] bg-[size:40px_40px] sm:bg-[size:60px_60px]" />
       </div>
+
+      {/* Animated wave lines */}
+      <svg className="absolute inset-0 w-full h-full opacity-20" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0" />
+            <stop offset="50%" stopColor="hsl(var(--primary))" stopOpacity="1" />
+            <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        {[0, 1, 2].map((i) => (
+          <path
+            key={i}
+            d="M0,50 Q250,30 500,50 T1000,50"
+            fill="none"
+            stroke="url(#waveGradient)"
+            strokeWidth="1"
+            className="animate-wave"
+            style={{
+              transform: `translateY(${30 + i * 20}%)`,
+              animationDelay: `${i * 0.5}s`,
+            }}
+          />
+        ))}
+      </svg>
       
       {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/30 to-background pointer-events-none" />
     </div>
   );
 };
@@ -178,8 +240,13 @@ const HeroScene = () => {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const [isReady, setIsReady] = useState(false);
   const [webGLSupported, setWebGLSupported] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    
     setWebGLSupported(isWebGLAvailable());
     
     const handleMouseMove = (e: MouseEvent) => {
@@ -189,15 +256,30 @@ const HeroScene = () => {
       });
     };
 
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches[0]) {
+        setMouse({
+          x: (e.touches[0].clientX / window.innerWidth) * 2 - 1,
+          y: -(e.touches[0].clientY / window.innerHeight) * 2 + 1,
+        });
+      }
+    };
+
     window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("touchmove", handleTouchMove);
     setIsReady(true);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("resize", checkMobile);
+    };
   }, []);
 
   if (!isReady) return null;
 
-  // Use fallback if WebGL is not supported
-  if (!webGLSupported) {
+  // Use enhanced fallback for mobile or when WebGL is not supported
+  if (!webGLSupported || isMobile) {
     return <FallbackScene />;
   }
 

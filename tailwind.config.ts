@@ -129,6 +129,16 @@ export default {
           "50%": { transform: "rotateY(-180deg)" },
           "100%": { transform: "rotateY(-180deg)" },
         },
+        "wave": {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(100%)" },
+        },
+        "float-smooth": {
+          "0%, 100%": { transform: "translateY(0) translateX(0)" },
+          "25%": { transform: "translateY(-8px) translateX(4px)" },
+          "50%": { transform: "translateY(-4px) translateX(-4px)" },
+          "75%": { transform: "translateY(-12px) translateX(2px)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -143,6 +153,8 @@ export default {
         "shimmer": "shimmer 2s linear infinite",
         "chart-draw": "chart-draw 2s ease-out forwards",
         "page-flip": "page-flip 1.5s ease-in-out",
+        "wave": "wave 8s linear infinite",
+        "float-smooth": "float-smooth 4s ease-in-out infinite",
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
