@@ -9,6 +9,11 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    const totalDuration = 3000; // 3 seconds
+    const intervalTime = 50;
+    const steps = totalDuration / intervalTime;
+    const increment = 100 / steps;
+    
     const interval = setInterval(() => {
       setProgress(prev => {
         if (prev >= 100) {
@@ -16,9 +21,9 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
           setTimeout(onComplete, 200);
           return 100;
         }
-        return prev + Math.random() * 25 + 10;
+        return Math.min(prev + increment + (Math.random() * 0.5), 100);
       });
-    }, 100);
+    }, intervalTime);
 
     return () => clearInterval(interval);
   }, [onComplete]);
