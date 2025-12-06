@@ -17,6 +17,10 @@ const navItems = [
     ],
   },
   {
+    label: "Fortress FX",
+    href: "#fortress-fx",
+  },
+  {
     label: "Supported Brokers",
     href: "#brokers",
   },
@@ -38,6 +42,7 @@ const navItems = [
       { label: "Help Center", href: "#" },
       { label: "Blog", href: "#" },
       { label: "FAQ", href: "#faq" },
+      { label: "Contact", href: "/contact" },
     ],
   },
 ];
