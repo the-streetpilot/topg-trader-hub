@@ -174,23 +174,24 @@ const FallbackScene = () => {
         }}
       />
       
-      {/* Floating particles using CSS - always active */}
+      {/* Floating dollar symbols - always active */}
       <div className="absolute inset-0">
-        {Array.from({ length: 40 }).map((_, i) => (
+        {Array.from({ length: 25 }).map((_, i) => (
           <div
             key={i}
-            className="absolute rounded-full bg-primary/30"
+            className="absolute text-primary/40 font-bold select-none"
             style={{
-              width: `${2 + Math.random() * 4}px`,
-              height: `${2 + Math.random() * 4}px`,
+              fontSize: `${12 + Math.random() * 16}px`,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animation: `float ${3 + Math.random() * 4}s ease-in-out infinite`,
-              animationDelay: `${Math.random() * 2}s`,
+              animation: `float ${4 + Math.random() * 5}s ease-in-out infinite`,
+              animationDelay: `${Math.random() * 3}s`,
               transform: `translate(${mousePos.x * (10 + i * 0.5)}px, ${mousePos.y * (10 + i * 0.5)}px)`,
               transition: 'transform 0.3s ease-out',
             }}
-          />
+          >
+            {i % 3 === 0 ? "$" : i % 3 === 1 ? "€" : "£"}
+          </div>
         ))}
       </div>
       

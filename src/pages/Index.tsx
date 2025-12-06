@@ -4,6 +4,7 @@ import LoadingScreen from "@/components/LoadingScreen";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import FeatureSection from "@/components/FeatureSection";
+import FortressFXSection from "@/components/FortressFXSection";
 import BrokersSection from "@/components/BrokersSection";
 import PricingSection from "@/components/PricingSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
@@ -38,6 +39,7 @@ const Index = () => {
         <Navbar />
         <main>
           <Hero />
+          <FortressFXSection />
           <FeatureSection />
           <BrokersSection />
           <TestimonialsSection />

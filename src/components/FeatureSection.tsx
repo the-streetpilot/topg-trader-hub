@@ -7,8 +7,10 @@ import {
   BookOpen, 
   PlayCircle, 
   StickyNote,
-  Users
+  Users,
+  Sparkles
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface FeatureCardProps {
   icon: ReactNode;
@@ -19,6 +21,90 @@ interface FeatureCardProps {
   reverse?: boolean;
 }
 
+interface MainFeatureProps {
+  icon: ReactNode;
+  title: string;
+  description: string;
+  features: string[];
+  gradient: string;
+}
+
+const MainFeatureCard = ({ icon, title, description, features, gradient }: MainFeatureProps) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      className={`relative overflow-hidden rounded-3xl p-8 lg:p-12 ${gradient}`}
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.8, ease: [0.2, 0.9, 0.2, 1] }}
+    >
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent" />
+      <div className="absolute top-4 right-4">
+        <Sparkles className="h-8 w-8 text-primary/30 animate-pulse" />
+      </div>
+      
+      <div className="relative">
+        <motion.div
+          className="mb-6 inline-flex items-center justify-center rounded-2xl bg-primary/20 p-4"
+          initial={{ scale: 0 }}
+          animate={isInView ? { scale: 1 } : { scale: 0 }}
+          transition={{ duration: 0.5, delay: 0.2, type: "spring" }}
+        >
+          <span className="text-primary [&>svg]:h-8 [&>svg]:w-8">{icon}</span>
+        </motion.div>
+        
+        <motion.h3
+          className="mb-4 text-3xl font-extrabold text-foreground lg:text-4xl"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          {title}
+        </motion.h3>
+        
+        <motion.p
+          className="mb-8 text-lg text-muted-foreground max-w-lg"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
+          {description}
+        </motion.p>
+        
+        <ul className="grid gap-3 sm:grid-cols-2 mb-8">
+          {features.map((feature, i) => (
+            <motion.li
+              key={i}
+              className="flex items-center gap-3 text-foreground"
+              initial={{ opacity: 0, x: -20 }}
+              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+              transition={{ duration: 0.5, delay: 0.5 + i * 0.1 }}
+            >
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold">
+                ✓
+              </span>
+              {feature}
+            </motion.li>
+          ))}
+        </ul>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.5, delay: 0.7 }}
+        >
+          <Button variant="neon" size="xl">
+            Learn More
+          </Button>
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+};
+
 const FeatureCard = ({ icon, title, description, features, index, reverse }: FeatureCardProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -27,8 +113,8 @@ const FeatureCard = ({ icon, title, description, features, index, reverse }: Fea
     <motion.div
       ref={ref}
       className={`flex flex-col items-center gap-8 py-16 lg:flex-row lg:gap-16 ${reverse ? "lg:flex-row-reverse" : ""}`}
-      initial={{ opacity: 0, y: 60 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
+      initial={{ opacity: 0, x: reverse ? 100 : -100 }}
+      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: reverse ? 100 : -100 }}
       transition={{ duration: 0.8, delay: 0.1, ease: [0.2, 0.9, 0.2, 1] }}
     >
       {/* Content */}
@@ -73,22 +159,19 @@ const FeatureCard = ({ icon, title, description, features, index, reverse }: Fea
       {/* Visual */}
       <motion.div
         className="flex-1"
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
-        transition={{ duration: 0.8, delay: 0.3 }}
+        initial={{ opacity: 0, x: reverse ? -80 : 80 }}
+        animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: reverse ? -80 : 80 }}
+        transition={{ duration: 0.8, delay: 0.3, ease: [0.2, 0.9, 0.2, 1] }}
         whileHover={{ scale: 1.02 }}
       >
         <div className="neon-border-hover glass-card relative aspect-video overflow-hidden rounded-2xl p-6">
           {/* Mock UI based on feature type */}
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
           <div className="relative h-full">
-            {index === 1 && <JournalingMock />}
-            {index === 2 && <AnalyticsMock />}
-            {index === 3 && <ReportsMock />}
             {index === 4 && <PlaybooksMock />}
             {index === 5 && <BacktestingMock />}
             {index === 6 && <NotebookMock />}
-            {index === 7 && <CommunityMock />}
+            {index === 7 && <ReportsMock />}
           </div>
         </div>
       </motion.div>
@@ -214,9 +297,10 @@ const CommunityMock = () => (
   </div>
 );
 
-const features = [
+// Main features - Journaling, Analytics, Community
+const mainFeatures = [
   {
-    icon: <Zap className="h-4 w-4" />,
+    icon: <Zap />,
     title: "Automated Journaling",
     description: "Auto-sync with brokers, upload CSV, or manual entry. Unlimited accounts with automated statistics and daily snapshots.",
     features: [
@@ -225,9 +309,10 @@ const features = [
       "Daily performance snapshots",
       "Unlimited trading accounts",
     ],
+    gradient: "glass-card border-2 border-primary/20",
   },
   {
-    icon: <BarChart3 className="h-4 w-4" />,
+    icon: <BarChart3 />,
     title: "Advanced Trade Analytics",
     description: "R-multiple, expectancy, running P/L, MAE/MFE, trade-rating, win-rate, profit factor — all calculated automatically.",
     features: [
@@ -236,18 +321,24 @@ const features = [
       "MAE/MFE analysis",
       "Trade rating system",
     ],
+    gradient: "glass-card border-2 border-primary/20",
   },
   {
-    icon: <FileText className="h-4 w-4" />,
-    title: "50+ Data-Driven Reports",
-    description: "Drill down into best/worst days, price & quantity analysis, time & duration metrics, options expiry, and risk reports.",
+    icon: <Users />,
+    title: "Community & Mentoring",
+    description: "Join 10K+ traders in our community. Access webinars, bootcamps, and mentor mode to learn from the best.",
     features: [
-      "Performance by day/time/symbol",
-      "Risk metrics dashboard",
-      "Options-specific reports",
-      "Custom date ranges",
+      "10,000+ active members",
+      "Weekly live webinars",
+      "Mentor matching program",
+      "Private trading groups",
     ],
+    gradient: "glass-card border-2 border-primary/20",
   },
+];
+
+// Secondary features
+const secondaryFeatures = [
   {
     icon: <BookOpen className="h-4 w-4" />,
     title: "Trading Playbooks",
@@ -282,14 +373,14 @@ const features = [
     ],
   },
   {
-    icon: <Users className="h-4 w-4" />,
-    title: "Community & Mentoring",
-    description: "Join 10K+ traders in our community. Access webinars, bootcamps, and mentor mode to learn from the best.",
+    icon: <FileText className="h-4 w-4" />,
+    title: "50+ Data-Driven Reports",
+    description: "Drill down into best/worst days, price & quantity analysis, time & duration metrics, options expiry, and risk reports.",
     features: [
-      "10,000+ active members",
-      "Weekly live webinars",
-      "Mentor matching program",
-      "Private trading groups",
+      "Performance by day/time/symbol",
+      "Risk metrics dashboard",
+      "Options-specific reports",
+      "Custom date ranges",
     ],
   },
 ];
@@ -329,16 +420,42 @@ const FeatureSection = () => {
           </motion.h2>
         </div>
 
-        {/* Feature cards */}
-        {features.map((feature, index) => (
-          <div key={feature.title} id={index === 0 ? "journaling" : index === 1 ? "analytics" : index === 2 ? "reports" : index === 3 ? "playbooks" : index === 4 ? "backtesting" : index === 5 ? "notebook" : "community"}>
-            <FeatureCard
-              {...feature}
-              index={index + 1}
-              reverse={index % 2 === 1}
-            />
-          </div>
-        ))}
+        {/* Main Features - Enhanced Cards */}
+        <div className="grid gap-8 lg:grid-cols-3 mb-20" id="journaling">
+          {mainFeatures.map((feature, index) => (
+            <motion.div
+              key={feature.title}
+              id={index === 1 ? "analytics" : index === 2 ? "community" : undefined}
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: index * 0.15 }}
+            >
+              <MainFeatureCard {...feature} />
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Secondary Feature cards with slide animations */}
+        <div className="mt-12">
+          <motion.h3
+            className="text-2xl font-bold text-center text-foreground mb-12"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            And much more...
+          </motion.h3>
+          {secondaryFeatures.map((feature, index) => (
+            <div key={feature.title} id={index === 0 ? "playbooks" : index === 1 ? "backtesting" : index === 2 ? "notebook" : "reports"}>
+              <FeatureCard
+                {...feature}
+                index={index + 4}
+                reverse={index % 2 === 1}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
