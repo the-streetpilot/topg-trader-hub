@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Twitter, Linkedin, Instagram, MessageCircle } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const footerLinks = {
   explore: [
@@ -18,7 +19,7 @@ const footerLinks = {
     { label: "KYC/AML Policy", href: "#" },
   ],
   support: [
-    { label: "Contact Us", href: "#" },
+    { label: "Contact Us", href: "/contact" },
     { label: "Help Center", href: "#" },
     { label: "Careers", href: "#" },
   ],
@@ -127,12 +128,21 @@ const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-primary"
-                  >
-                    {link.label}
-                  </a>
+                  {link.href.startsWith("/") ? (
+                    <Link
+                      to={link.href}
+                      className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                    >
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a
+                      href={link.href}
+                      className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                    >
+                      {link.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

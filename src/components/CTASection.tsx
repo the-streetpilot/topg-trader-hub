@@ -2,6 +2,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const CTASection = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -53,10 +54,12 @@ const CTASection = () => {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <Button variant="neon" size="xl" className="group">
-                Start Free Trial
-                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Button>
+              <Link to="/contact">
+                <Button variant="neon" size="xl" className="group">
+                  Start Free Trial
+                  <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </Link>
               <span className="text-sm text-muted-foreground">No credit card required</span>
             </motion.div>
           </div>

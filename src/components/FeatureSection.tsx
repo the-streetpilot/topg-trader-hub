@@ -11,6 +11,7 @@ import {
   Sparkles
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 interface FeatureCardProps {
   icon: ReactNode;
@@ -31,15 +32,15 @@ interface MainFeatureProps {
 
 const MainFeatureCard = ({ icon, title, description, features, gradient }: MainFeatureProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: false, amount: 0.3, margin: "-50px" });
 
   return (
     <motion.div
       ref={ref}
       className={`relative overflow-hidden rounded-3xl p-8 lg:p-12 ${gradient}`}
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.8, ease: [0.2, 0.9, 0.2, 1] }}
+      initial={{ opacity: 0, scale: 0.9, y: 60 }}
+      animate={isInView ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.9, y: 60 }}
+      transition={{ duration: 0.7, ease: [0.2, 0.9, 0.2, 1] }}
     >
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent" />
       <div className="absolute top-4 right-4">
@@ -96,9 +97,11 @@ const MainFeatureCard = ({ icon, title, description, features, gradient }: MainF
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5, delay: 0.7 }}
         >
-          <Button variant="neon" size="xl">
-            Learn More
-          </Button>
+          <Link to="/contact">
+            <Button variant="neon" size="xl">
+              Learn More
+            </Button>
+          </Link>
         </motion.div>
       </div>
     </motion.div>
@@ -107,15 +110,15 @@ const MainFeatureCard = ({ icon, title, description, features, gradient }: MainF
 
 const FeatureCard = ({ icon, title, description, features, index, reverse }: FeatureCardProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: false, amount: 0.3, margin: "-50px" });
 
   return (
     <motion.div
       ref={ref}
       className={`flex flex-col items-center gap-8 py-16 lg:flex-row lg:gap-16 ${reverse ? "lg:flex-row-reverse" : ""}`}
-      initial={{ opacity: 0, x: reverse ? 100 : -100 }}
-      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: reverse ? 100 : -100 }}
-      transition={{ duration: 0.8, delay: 0.1, ease: [0.2, 0.9, 0.2, 1] }}
+      initial={{ opacity: 0, x: reverse ? 120 : -120 }}
+      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: reverse ? 120 : -120 }}
+      transition={{ duration: 0.7, ease: [0.2, 0.9, 0.2, 1] }}
     >
       {/* Content */}
       <div className="flex-1 text-center lg:text-left">
@@ -159,9 +162,9 @@ const FeatureCard = ({ icon, title, description, features, index, reverse }: Fea
       {/* Visual */}
       <motion.div
         className="flex-1"
-        initial={{ opacity: 0, x: reverse ? -80 : 80 }}
-        animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: reverse ? -80 : 80 }}
-        transition={{ duration: 0.8, delay: 0.3, ease: [0.2, 0.9, 0.2, 1] }}
+        initial={{ opacity: 0, x: reverse ? -100 : 100 }}
+        animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: reverse ? -100 : 100 }}
+        transition={{ duration: 0.7, delay: 0.15, ease: [0.2, 0.9, 0.2, 1] }}
         whileHover={{ scale: 1.02 }}
       >
         <div className="neon-border-hover glass-card relative aspect-video overflow-hidden rounded-2xl p-6">
