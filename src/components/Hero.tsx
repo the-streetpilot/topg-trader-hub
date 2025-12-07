@@ -60,7 +60,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4, ease: [0.2, 0.9, 0.2, 1] }}
           >
-            TopG shows you the metrics that matter — and the behaviors that lead to profit.
+            Tradefxbook shows you the metrics that matter — and the behaviors that lead to profit.
           </motion.p>
 
           {/* CTAs */}

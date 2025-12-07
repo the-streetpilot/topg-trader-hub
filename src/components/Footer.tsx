@@ -45,14 +45,13 @@ const Footer = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <a href="#" className="inline-block">
+            <Link to="/" className="inline-block">
                 <span className="text-2xl font-bold tracking-wider text-foreground">
-                  TOP<span className="gradient-text-blue">G</span>{" "}
-                  <span className="font-medium text-muted-foreground">JOURNAL</span>
+                  TRADE<span className="gradient-text-blue">FX</span>BOOK
                 </span>
-              </a>
+              </Link>
               <p className="mt-4 max-w-sm text-sm text-muted-foreground">
-                The trading journal that shows you what matters. Track, analyze, and improve your trading performance with powerful analytics.
+                The trading journal that shows you what matters. Track, analyze, and improve your trading performance.
               </p>
               
               {/* Social links */}
@@ -159,7 +158,7 @@ const Footer = () => {
         >
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <p className="text-xs text-muted-foreground">
-              © {new Date().getFullYear()} TopG Journal. All rights reserved.
+              © {new Date().getFullYear()} Tradefxbook. All rights reserved.
             </p>
             <p className="max-w-2xl text-center text-[10px] text-muted-foreground/70 md:text-right">
               Trading futures, options, and currencies involves substantial risk of loss and is not suitable for all investors. Only risk capital should be used. Past performance is not indicative of future results. TopG Journal does not provide investment advice.

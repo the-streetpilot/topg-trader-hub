@@ -113,10 +113,10 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <h1 className="text-3xl font-bold tracking-wider text-foreground">
-            TOP<span className="gradient-text-blue">G</span>
-          </h1>
-          <p className="mt-2 text-sm text-muted-foreground">Preparing your insights...</p>
+        <h1 className="text-3xl font-bold tracking-wider text-foreground">
+          TRADE<span className="gradient-text-blue">FX</span>BOOK
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground">Preparing your insights...</p>
         </motion.div>
 
         {/* Progress bar */}
