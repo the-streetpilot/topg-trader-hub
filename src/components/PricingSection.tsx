@@ -95,7 +95,7 @@ const PricingSection = () => {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Start with a 14-day free trial. No credit card required.
+            Start with a 14-day free trial.
           </motion.p>
         </div>
 
@@ -178,13 +178,15 @@ const PricingSection = () => {
                 ))}
               </ul>
 
-              <Button
-                variant={plan.highlighted ? "neonGreen" : "outline"}
-                size="lg"
-                className="w-full"
-              >
-                {plan.name === "Enterprise" ? "Contact Sales" : "Start Free Trial"}
-              </Button>
+              <a href="#contact">
+                <Button
+                  variant={plan.highlighted ? "neonGreen" : "outline"}
+                  size="lg"
+                  className="w-full"
+                >
+                  {plan.name === "Enterprise" ? "Contact Sales" : "Start Free Trial"}
+                </Button>
+              </a>
             </motion.div>
           ))}
         </div>

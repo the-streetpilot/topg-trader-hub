@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
-import { Star } from "lucide-react";
+import { useRef, useState } from "react";
+import { Star, Play, X } from "lucide-react";
 
 const testimonials = [
   {
@@ -8,7 +8,7 @@ const testimonials = [
     role: "Day Trader",
     avatar: "MC",
     profit: "+$47,230",
-    content: "TopG transformed my trading. The analytics showed me I was overtrading Fridays - fixing that alone boosted my monthly P/L by 40%.",
+    content: "Tradefxbook transformed my trading. The analytics showed me I was overtrading Fridays - fixing that alone boosted my monthly P/L by 40%.",
     rating: 5,
   },
   {
@@ -40,17 +40,42 @@ const testimonials = [
     role: "Futures Trader",
     avatar: "DK",
     profit: "+$312,000",
-    content: "TopG's community is what sets it apart. The webinars and mentor matching helped me go full-time in 6 months.",
+    content: "Tradefxbook's community is what sets it apart. The webinars and mentor matching helped me go full-time in 6 months.",
     rating: 5,
+  },
+];
+
+const videoTestimonials = [
+  {
+    name: "Alex Thompson",
+    role: "Professional Trader",
+    profit: "+$234,500",
+    quote: "This platform completely changed how I approach risk management.",
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+  },
+  {
+    name: "Maria Garcia",
+    role: "Forex Trader",
+    profit: "+$89,200",
+    quote: "The analytics helped me identify my most profitable trading hours.",
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+  },
+  {
+    name: "Robert Chen",
+    role: "Institutional Trader",
+    profit: "+$567,000",
+    quote: "Best trading journal I've used in my 15-year career.",
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
 ];
 
 const TestimonialsSection = () => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [playingVideo, setPlayingVideo] = useState<string | null>(null);
 
   return (
-    <section className="relative overflow-hidden py-20" ref={ref}>
+    <section id="testimonials" className="relative overflow-hidden py-20" ref={ref}>
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section header */}
         <div className="mb-12 text-center">
@@ -80,7 +105,58 @@ const TestimonialsSection = () => {
           </motion.h2>
         </div>
 
-        {/* Testimonials carousel */}
+        {/* Video Testimonials */}
+        <motion.div 
+          className="mb-12"
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <h3 className="text-xl font-semibold text-foreground mb-6 text-center">Video Testimonials</h3>
+          <div className="grid gap-6 md:grid-cols-3">
+            {videoTestimonials.map((video, index) => (
+              <motion.div
+                key={video.name}
+                className="glass-card neon-border-hover rounded-2xl overflow-hidden"
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+              >
+                <div 
+                  className="relative aspect-video bg-gradient-to-br from-primary/20 to-transparent cursor-pointer group"
+                  onClick={() => setPlayingVideo(video.videoUrl)}
+                >
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <motion.div
+                      className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/90 text-primary-foreground shadow-lg group-hover:scale-110 transition-transform"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Play className="h-6 w-6 ml-1" fill="currentColor" />
+                    </motion.div>
+                  </div>
+                  <div className="absolute top-3 right-3 rounded-lg bg-neon-green/20 px-2.5 py-1 text-sm font-bold text-neon-green backdrop-blur-sm">
+                    {video.profit}
+                  </div>
+                </div>
+                <div className="p-4">
+                  <p className="text-muted-foreground text-sm mb-3 italic">"{video.quote}"</p>
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-primary to-neon-green text-xs font-bold text-primary-foreground">
+                      {video.name.split(' ').map(n => n[0]).join('')}
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-foreground text-sm">{video.name}</h4>
+                      <p className="text-xs text-muted-foreground">{video.role}</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Text Testimonials carousel */}
         <div className="relative">
           <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory">
             {testimonials.map((testimonial, index) => (
@@ -89,7 +165,7 @@ const TestimonialsSection = () => {
                 className="neon-border-hover glass-card min-w-[320px] max-w-[400px] flex-shrink-0 snap-center rounded-2xl p-6"
                 initial={{ opacity: 0, x: 50 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-                transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
+                transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
                 whileHover={{ scale: 1.02, rotateY: 5 }}
                 style={{ transformStyle: "preserve-3d" }}
               >
@@ -129,6 +205,38 @@ const TestimonialsSection = () => {
           <div className="pointer-events-none absolute right-0 top-0 h-full w-20 bg-gradient-to-l from-background to-transparent" />
         </div>
       </div>
+
+      {/* Video Modal */}
+      {playingVideo && (
+        <motion.div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-background/90 backdrop-blur-xl p-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={() => setPlayingVideo(null)}
+        >
+          <motion.div
+            className="relative w-full max-w-4xl aspect-video rounded-2xl overflow-hidden bg-card"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="absolute top-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-background/50 text-foreground backdrop-blur-sm hover:bg-background/80 transition-colors"
+              onClick={() => setPlayingVideo(null)}
+            >
+              <X className="h-5 w-5" />
+            </button>
+            <iframe
+              className="w-full h-full"
+              src={`${playingVideo}?autoplay=1`}
+              title="Video testimonial"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </motion.div>
+        </motion.div>
+      )}
     </section>
   );
 };

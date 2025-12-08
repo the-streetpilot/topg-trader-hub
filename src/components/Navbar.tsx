@@ -2,38 +2,28 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link, useLocation } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
-  {
-    label: "Features",
-    href: "/features",
-  },
-  {
-    label: "Pricing",
-    href: "/pricing",
-  },
+  { label: "Home", href: "#home" },
+  { label: "Features", href: "#features" },
+  { label: "Pricing", href: "#pricing" },
   {
     label: "Resources",
     items: [
-      { label: "Blog", href: "/blog" },
-      { label: "Help Center", href: "/help" },
-      { label: "About Us", href: "/about" },
-      { label: "Careers", href: "/careers" },
+      { label: "Blog", href: "#blog" },
+      { label: "Help Center", href: "#help" },
+      { label: "About Us", href: "#about" },
+      { label: "Careers", href: "#careers" },
     ],
   },
-  {
-    label: "Contact",
-    href: "/contact",
-  },
+  { label: "Contact", href: "#contact" },
 ];
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,9 +33,13 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
+  const scrollToSection = (href: string) => {
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
     setIsMobileMenuOpen(false);
-  }, [location]);
+  };
 
   return (
     <motion.header
@@ -59,14 +53,14 @@ const Navbar = () => {
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
     >
       <div className="container mx-auto flex items-center justify-between px-4 lg:px-8">
-        <Link to="/" className="flex items-center gap-2">
+        <button onClick={() => scrollToSection("#home")} className="flex items-center gap-2">
           <motion.span 
             className="text-xl font-bold tracking-wider text-foreground"
             whileHover={{ scale: 1.02 }}
           >
             TRADE<span className="gradient-text-blue">FX</span>BOOK
           </motion.span>
-        </Link>
+        </button>
 
         <nav className="hidden items-center gap-1 lg:flex">
           {navItems.map((item) => (
@@ -82,12 +76,12 @@ const Navbar = () => {
                   <ChevronDown className="h-4 w-4" />
                 </button>
               ) : (
-                <Link
-                  to={item.href!}
+                <button
+                  onClick={() => scrollToSection(item.href!)}
                   className="rounded-lg px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
                 >
                   {item.label}
-                </Link>
+                </button>
               )}
 
               <AnimatePresence>
@@ -100,13 +94,13 @@ const Navbar = () => {
                     transition={{ duration: 0.2 }}
                   >
                     {item.items.map((subItem) => (
-                      <Link
+                      <button
                         key={subItem.label}
-                        to={subItem.href}
-                        className="block rounded-lg px-4 py-2.5 text-sm text-muted-foreground transition-all hover:bg-accent hover:text-foreground hover:shadow-neon-blue"
+                        onClick={() => scrollToSection(subItem.href)}
+                        className="block w-full text-left rounded-lg px-4 py-2.5 text-sm text-muted-foreground transition-all hover:bg-accent hover:text-foreground hover:shadow-neon-blue"
                       >
                         {subItem.label}
-                      </Link>
+                      </button>
                     ))}
                   </motion.div>
                 )}
@@ -117,12 +111,12 @@ const Navbar = () => {
 
         <div className="hidden items-center gap-3 lg:flex">
           <ThemeToggle />
-          <Link to="/contact" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
+          <button onClick={() => scrollToSection("#contact")} className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
             Log In
-          </Link>
-          <Link to="/contact">
-            <Button variant="neon" size="default">Get Started</Button>
-          </Link>
+          </button>
+          <Button variant="neon" size="default" onClick={() => scrollToSection("#contact")}>
+            Get Started
+          </Button>
         </div>
 
         <button
@@ -157,22 +151,22 @@ const Navbar = () => {
                       <div className="py-2">
                         <p className="mb-2 text-sm font-semibold text-foreground">{item.label}</p>
                         {item.items.map((subItem) => (
-                          <Link
+                          <button
                             key={subItem.label}
-                            to={subItem.href}
-                            className="block py-2 pl-4 text-sm text-muted-foreground transition-colors hover:text-primary"
+                            onClick={() => scrollToSection(subItem.href)}
+                            className="block w-full text-left py-2 pl-4 text-sm text-muted-foreground transition-colors hover:text-primary"
                           >
                             {subItem.label}
-                          </Link>
+                          </button>
                         ))}
                       </div>
                     ) : (
-                      <Link
-                        to={item.href!}
-                        className="block py-3 text-lg font-medium text-foreground"
+                      <button
+                        onClick={() => scrollToSection(item.href!)}
+                        className="block w-full text-left py-3 text-lg font-medium text-foreground"
                       >
                         {item.label}
-                      </Link>
+                      </button>
                     )}
                   </div>
                 ))}
@@ -181,8 +175,12 @@ const Navbar = () => {
                     <span className="text-sm text-muted-foreground">Theme</span>
                     <ThemeToggle />
                   </div>
-                  <Link to="/contact"><Button variant="outline" size="lg" className="w-full">Log In</Button></Link>
-                  <Link to="/contact"><Button variant="neon" size="lg" className="w-full">Get Started</Button></Link>
+                  <Button variant="outline" size="lg" className="w-full" onClick={() => scrollToSection("#contact")}>
+                    Log In
+                  </Button>
+                  <Button variant="neon" size="lg" className="w-full" onClick={() => scrollToSection("#contact")}>
+                    Get Started
+                  </Button>
                 </div>
               </nav>
             </motion.div>

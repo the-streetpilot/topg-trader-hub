@@ -1,27 +1,25 @@
 import { motion } from "framer-motion";
 import { Twitter, Linkedin, Instagram, MessageCircle } from "lucide-react";
-import { Link } from "react-router-dom";
 
 const footerLinks = {
   explore: [
-    { label: "Home", href: "#" },
-    { label: "About", href: "#" },
+    { label: "Home", href: "#home" },
+    { label: "About", href: "#about" },
     { label: "Features", href: "#features" },
-    { label: "Playbooks", href: "#playbooks" },
     { label: "Pricing", href: "#pricing" },
-    { label: "Blog", href: "#" },
-    { label: "Resources", href: "#" },
+    { label: "Blog", href: "#blog" },
+    { label: "Help Center", href: "#help" },
   ],
   legal: [
-    { label: "Risk Disclaimer", href: "#" },
-    { label: "Privacy Policy", href: "#" },
-    { label: "Terms & Conditions", href: "#" },
-    { label: "KYC/AML Policy", href: "#" },
+    { label: "Risk Disclaimer", href: "#legal" },
+    { label: "Privacy Policy", href: "#legal" },
+    { label: "Terms & Conditions", href: "#legal" },
+    { label: "KYC/AML Policy", href: "#legal" },
   ],
   support: [
-    { label: "Contact Us", href: "/contact" },
-    { label: "Help Center", href: "#" },
-    { label: "Careers", href: "#" },
+    { label: "Contact Us", href: "#contact" },
+    { label: "Help Center", href: "#help" },
+    { label: "Careers", href: "#careers" },
   ],
 };
 
@@ -33,6 +31,13 @@ const socialLinks = [
 ];
 
 const Footer = () => {
+  const scrollToSection = (href: string) => {
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <footer className="relative border-t border-border/50 bg-card/30 py-16">
       <div className="container mx-auto px-4 lg:px-8">
@@ -45,11 +50,11 @@ const Footer = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-            <Link to="/" className="inline-block">
+              <button onClick={() => scrollToSection("#home")} className="inline-block">
                 <span className="text-2xl font-bold tracking-wider text-foreground">
                   TRADE<span className="gradient-text-blue">FX</span>BOOK
                 </span>
-              </Link>
+              </button>
               <p className="mt-4 max-w-sm text-sm text-muted-foreground">
                 The trading journal that shows you what matters. Track, analyze, and improve your trading performance.
               </p>
@@ -83,12 +88,12 @@ const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.explore.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
+                  <button
+                    onClick={() => scrollToSection(link.href)}
                     className="text-sm text-muted-foreground transition-colors hover:text-primary"
                   >
                     {link.label}
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -105,12 +110,12 @@ const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
+                  <button
+                    onClick={() => scrollToSection(link.href)}
                     className="text-sm text-muted-foreground transition-colors hover:text-primary"
                   >
                     {link.label}
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -127,21 +132,12 @@ const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.label}>
-                  {link.href.startsWith("/") ? (
-                    <Link
-                      to={link.href}
-                      className="text-sm text-muted-foreground transition-colors hover:text-primary"
-                    >
-                      {link.label}
-                    </Link>
-                  ) : (
-                    <a
-                      href={link.href}
-                      className="text-sm text-muted-foreground transition-colors hover:text-primary"
-                    >
-                      {link.label}
-                    </a>
-                  )}
+                  <button
+                    onClick={() => scrollToSection(link.href)}
+                    className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                  >
+                    {link.label}
+                  </button>
                 </li>
               ))}
             </ul>
@@ -161,7 +157,7 @@ const Footer = () => {
               © {new Date().getFullYear()} Tradefxbook. All rights reserved.
             </p>
             <p className="max-w-2xl text-center text-[10px] text-muted-foreground/70 md:text-right">
-              Trading futures, options, and currencies involves substantial risk of loss and is not suitable for all investors. Only risk capital should be used. Past performance is not indicative of future results. TopG Journal does not provide investment advice.
+              Trading futures, options, and currencies involves substantial risk of loss and is not suitable for all investors. Only risk capital should be used. Past performance is not indicative of future results. Tradefxbook does not provide investment advice.
             </p>
           </div>
         </motion.div>
