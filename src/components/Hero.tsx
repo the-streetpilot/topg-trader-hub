@@ -4,11 +4,14 @@ import { Button } from "@/components/ui/button";
 import HeroScene from "./HeroScene";
 import CountUp from "./CountUp";
 import heroBg from "@/assets/hero-bg.png";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import InteractiveDemo from "./InteractiveDemo";
 
 const Hero = () => {
+  const [isDemoOpen, setIsDemoOpen] = useState(false);
+
   return (
-    <section className="relative min-h-screen overflow-hidden pt-24 pb-12 sm:pt-32 sm:pb-20">
+    <section id="home" className="relative min-h-screen overflow-hidden pt-24 pb-12 sm:pt-32 sm:pb-20">
       {/* Background image */}
       <div 
         className="absolute inset-0 -z-20 opacity-30 dark:opacity-40"
@@ -70,12 +73,17 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5, ease: [0.2, 0.9, 0.2, 1] }}
           >
-            <Link to="/contact">
-              <Button variant="neon" size="lg" className="w-full min-w-[180px] text-sm sm:w-auto sm:min-w-[200px] sm:text-base">
+            <a href="#contact">
+              <Button variant="neon" size="lg">
                 Get Started Now
               </Button>
-            </Link>
-            <Button variant="ghost" size="lg" className="group w-full min-w-[180px] text-sm text-muted-foreground hover:text-foreground sm:w-auto sm:min-w-[200px] sm:text-base">
+            </a>
+            <Button 
+              variant="ghost" 
+              size="lg" 
+              className="group text-muted-foreground hover:text-foreground"
+              onClick={() => setIsDemoOpen(true)}
+            >
               <Play className="mr-2 h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
               View Demo
             </Button>
@@ -116,6 +124,9 @@ const Hero = () => {
 
       {/* Bottom gradient fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
+
+      {/* Interactive Demo Modal */}
+      <InteractiveDemo isOpen={isDemoOpen} onClose={() => setIsDemoOpen(false)} />
     </section>
   );
 };

@@ -2,7 +2,6 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
 
 const CTASection = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -20,13 +19,6 @@ const CTASection = () => {
           {/* Background effects */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(31,182,255,0.15),transparent_50%)]" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(44,232,154,0.15),transparent_50%)]" />
-          
-          {/* Grid pattern */}
-          <div className="absolute inset-0 opacity-10" style={{
-            backgroundImage: `linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)`,
-            backgroundSize: '50px 50px'
-          }} />
 
           <div className="relative z-10">
             <motion.h2
@@ -44,23 +36,21 @@ const CTASection = () => {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              Join 50,000+ traders who've transformed their performance with TopG. 
+              Join 50,000+ traders who've transformed their performance with Tradefxbook. 
               Start your 14-day free trial today.
             </motion.p>
 
             <motion.div
-              className="flex flex-col items-center justify-center gap-4 sm:flex-row"
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <Link to="/contact">
-                <Button variant="neon" size="xl" className="group">
+              <a href="#contact">
+                <Button variant="neon" size="lg" className="group">
                   Start Free Trial
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
-              </Link>
-              <span className="text-sm text-muted-foreground">No credit card required</span>
+              </a>
             </motion.div>
           </div>
         </motion.div>

@@ -95,51 +95,6 @@ const Particles = ({ count, mouse }: ParticlesProps) => {
   );
 };
 
-const ChartMesh = ({ mouse }: { mouse: { x: number; y: number } }) => {
-  const meshRef = useRef<THREE.Mesh>(null);
-
-  const geometry = useMemo(() => {
-    const geo = new THREE.PlaneGeometry(8, 4, 50, 25);
-    const positions = geo.attributes.position.array as Float32Array;
-
-    for (let i = 0; i < positions.length; i += 3) {
-      const x = positions[i];
-      const y = positions[i + 1];
-      positions[i + 2] = Math.sin(x * 0.5) * Math.cos(y * 0.5) * 0.5;
-    }
-
-    geo.computeVertexNormals();
-    return geo;
-  }, []);
-
-  useFrame((state) => {
-    if (!meshRef.current) return;
-    const time = state.clock.getElapsedTime();
-    
-    meshRef.current.rotation.x = -0.4 + mouse.y * 0.1;
-    meshRef.current.rotation.z = mouse.x * 0.05;
-    
-    const positions = meshRef.current.geometry.attributes.position.array as Float32Array;
-    for (let i = 0; i < positions.length; i += 3) {
-      const x = positions[i];
-      const y = positions[i + 1];
-      positions[i + 2] = Math.sin(x * 0.5 + time * 0.5) * Math.cos(y * 0.5 + time * 0.3) * 0.3;
-    }
-    meshRef.current.geometry.attributes.position.needsUpdate = true;
-  });
-
-  return (
-    <mesh ref={meshRef} geometry={geometry} position={[0, -1, 0]}>
-      <meshBasicMaterial
-        color="#1fb6ff"
-        wireframe
-        transparent
-        opacity={0.15}
-      />
-    </mesh>
-  );
-};
-
 // Enhanced CSS-only fallback with always-active animations for mobile
 const FallbackScene = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -193,17 +148,6 @@ const FallbackScene = () => {
             {i % 3 === 0 ? "$" : i % 3 === 1 ? "€" : "£"}
           </div>
         ))}
-      </div>
-      
-      {/* Grid lines for chart feel - with parallax */}
-      <div 
-        className="absolute inset-0 opacity-20"
-        style={{
-          transform: `translate(${mousePos.x * 5}px, ${mousePos.y * 5}px)`,
-          transition: 'transform 0.3s ease-out',
-        }}
-      >
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(var(--neon-blue-rgb),0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(var(--neon-blue-rgb),0.15)_1px,transparent_1px)] bg-[size:40px_40px] sm:bg-[size:60px_60px]" />
       </div>
 
       {/* Animated wave lines */}
@@ -296,7 +240,6 @@ const HeroScene = () => {
       >
         <ambientLight intensity={0.2} />
         <Particles count={500} mouse={mouse} />
-        <ChartMesh mouse={mouse} />
       </Canvas>
       
       {/* Gradient overlay */}

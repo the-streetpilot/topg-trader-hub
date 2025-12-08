@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-semibold ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-semibold ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -15,16 +15,16 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "text-muted-foreground hover:bg-accent hover:text-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        neon: "relative bg-gradient-to-r from-neon-blue to-[hsl(220,100%,60%)] text-primary-foreground shadow-[0_0_8px_rgba(31,182,255,0.15)] hover:shadow-[0_0_30px_rgba(31,182,255,0.5),0_0_60px_rgba(31,182,255,0.25)] hover:scale-[1.02] active:scale-[0.98] before:absolute before:inset-0 before:rounded-lg before:bg-gradient-to-r before:from-neon-blue before:to-[hsl(220,100%,60%)] before:opacity-0 before:blur-xl before:transition-opacity hover:before:opacity-50",
-        neonGreen: "relative bg-gradient-to-r from-neon-green to-[hsl(140,70%,45%)] text-secondary-foreground shadow-[0_0_8px_rgba(44,232,154,0.15)] hover:shadow-[0_0_30px_rgba(44,232,154,0.5),0_0_60px_rgba(44,232,154,0.25)] hover:scale-[1.02] active:scale-[0.98]",
+        neon: "overflow-hidden bg-gradient-to-r from-neon-blue to-[hsl(220,100%,60%)] text-primary-foreground shadow-[0_0_8px_rgba(31,182,255,0.15)] hover:shadow-[0_0_30px_rgba(31,182,255,0.5),0_0_60px_rgba(31,182,255,0.25)] hover:scale-[1.02] active:scale-[0.98] [&>*]:relative [&>*]:z-10",
+        neonGreen: "overflow-hidden bg-gradient-to-r from-neon-green to-[hsl(140,70%,45%)] text-secondary-foreground shadow-[0_0_8px_rgba(44,232,154,0.15)] hover:shadow-[0_0_30px_rgba(44,232,154,0.5),0_0_60px_rgba(44,232,154,0.25)] hover:scale-[1.02] active:scale-[0.98] [&>*]:relative [&>*]:z-10",
         glass: "glass-card border border-border/50 text-foreground hover:border-primary/30 hover:shadow-neon-blue",
       },
       size: {
-        default: "h-11 px-6 py-2.5",
-        sm: "h-10 rounded-md px-5",
-        lg: "h-13 rounded-lg px-10 text-base",
-        xl: "h-16 rounded-xl px-12 text-lg font-bold",
-        icon: "h-11 w-11",
+        default: "h-10 px-5 py-2",
+        sm: "h-9 rounded-md px-4",
+        lg: "h-11 rounded-lg px-6",
+        xl: "h-14 rounded-xl px-8 text-base font-bold",
+        icon: "h-10 w-10",
       },
     },
     defaultVariants: {
@@ -41,9 +41,13 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, children, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
-    return <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />;
+    return (
+      <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props}>
+        <span className="relative z-10 flex items-center justify-center gap-2">{children}</span>
+      </Comp>
+    );
   }
 );
 Button.displayName = "Button";
