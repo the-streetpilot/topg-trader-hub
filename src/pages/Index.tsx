@@ -14,9 +14,9 @@ import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import AboutSection from "@/components/AboutSection";
 import HelpSection from "@/components/HelpSection";
-
 import LegalSection from "@/components/LegalSection";
 import ContactSection from "@/components/ContactSection";
+import CookieConsent from "@/components/CookieConsent";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -58,6 +58,7 @@ const Index = () => {
         </main>
         <Footer />
         <BackToTop />
+        <CookieConsent />
       </motion.div>
     </>
   );
