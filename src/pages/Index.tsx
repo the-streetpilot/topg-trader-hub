@@ -13,7 +13,6 @@ import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import AboutSection from "@/components/AboutSection";
-import BlogSection from "@/components/BlogSection";
 import HelpSection from "@/components/HelpSection";
 
 import LegalSection from "@/components/LegalSection";
@@ -51,7 +50,6 @@ const Index = () => {
           <BrokersSection />
           <TestimonialsSection />
           <PricingSection />
-          <BlogSection />
           <HelpSection />
           <LegalSection />
           <FAQSection />
