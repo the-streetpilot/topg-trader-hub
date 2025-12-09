@@ -156,16 +156,30 @@ const TestimonialsSection = () => {
           </div>
         </motion.div>
 
-        {/* Text Testimonials carousel */}
-        <div className="relative">
-          <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory">
-            {testimonials.map((testimonial, index) => (
+        {/* Text Testimonials carousel - Auto scrolling */}
+        <div className="relative overflow-hidden">
+          <motion.div 
+            className="flex gap-6"
+            animate={{ 
+              x: [0, -((320 + 24) * testimonials.length)],
+            }}
+            transition={{ 
+              x: {
+                repeat: Infinity,
+                repeatType: "loop",
+                duration: 25,
+                ease: "linear",
+              },
+            }}
+          >
+            {/* Duplicate testimonials for seamless loop */}
+            {[...testimonials, ...testimonials].map((testimonial, index) => (
               <motion.div
-                key={testimonial.name}
-                className="neon-border-hover glass-card min-w-[320px] max-w-[400px] flex-shrink-0 snap-center rounded-2xl p-6"
+                key={`${testimonial.name}-${index}`}
+                className="neon-border-hover glass-card min-w-[320px] max-w-[400px] flex-shrink-0 rounded-2xl p-6"
                 initial={{ opacity: 0, x: 50 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-                transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
+                transition={{ duration: 0.6, delay: 0.4 + (index % testimonials.length) * 0.1 }}
                 whileHover={{ scale: 1.02, rotateY: 5 }}
                 style={{ transformStyle: "preserve-3d" }}
               >
@@ -198,7 +212,7 @@ const TestimonialsSection = () => {
                 </p>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           {/* Fade edges */}
           <div className="pointer-events-none absolute left-0 top-0 h-full w-20 bg-gradient-to-r from-background to-transparent" />
