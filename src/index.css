@@ -4,76 +4,76 @@
 
 @layer base {
   :root {
-    /* TopG Light Theme - White, Red, Black */
-    --background: 0 0% 98%;
-    --foreground: 0 0% 5%;
+    /* Light Theme - White and Blue */
+    --background: 210 40% 98%;
+    --foreground: 215 25% 15%;
 
     /* Card & Surface */
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 5%;
+    --card-foreground: 215 25% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 5%;
+    --popover-foreground: 215 25% 15%;
 
-    /* Brand Colors - Red accent for light mode */
-    --primary: 0 85% 50%;
+    /* Brand Colors - Blue accent for light mode */
+    --primary: 210 100% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 10%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 215 25% 15%;
 
-    --destructive: 0 85% 50%;
+    --destructive: 0 85% 60%;
     --destructive-foreground: 0 0% 100%;
 
     /* Muted & Accent */
-    --muted: 0 0% 92%;
-    --muted-foreground: 0 0% 40%;
+    --muted: 210 40% 94%;
+    --muted-foreground: 215 15% 45%;
 
-    --accent: 0 0% 95%;
-    --accent-foreground: 0 0% 5%;
+    --accent: 210 50% 95%;
+    --accent-foreground: 215 25% 15%;
 
-    /* Neon Colors - Red theme for light */
-    --neon-blue: 0 85% 50%;
-    --neon-green: 0 0% 10%;
-    --neon-red: 0 85% 50%;
+    /* Neon Colors - Blue theme for light */
+    --neon-blue: 210 100% 50%;
+    --neon-green: 156 75% 40%;
+    --neon-red: 0 85% 60%;
     
     /* RGB variants for glow effects */
-    --neon-blue-rgb: 217, 38, 38;
-    --neon-green-rgb: 26, 26, 26;
-    --neon-red-rgb: 217, 38, 38;
+    --neon-blue-rgb: 0, 127, 255;
+    --neon-green-rgb: 26, 163, 107;
+    --neon-red-rgb: 230, 57, 70;
 
     /* Glass effect */
-    --glass: 0 0% 0% / 0.03;
-    --glass-border: 0 0% 0% / 0.1;
+    --glass: 210 50% 50% / 0.03;
+    --glass-border: 210 50% 50% / 0.12;
 
     /* System */
-    --border: 0 0% 88%;
-    --input: 0 0% 92%;
-    --ring: 0 85% 50%;
+    --border: 210 30% 88%;
+    --input: 210 40% 94%;
+    --ring: 210 100% 50%;
 
     --radius: 0.75rem;
 
     /* Gradients */
-    --gradient-dark: linear-gradient(180deg, hsl(0 0% 98%) 0%, hsl(0 0% 95%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(0 0% 97%) 100%);
-    --gradient-neon-blue: linear-gradient(135deg, hsl(0 85% 50%) 0%, hsl(0 70% 40%) 100%);
-    --gradient-neon-green: linear-gradient(135deg, hsl(0 0% 10%) 0%, hsl(0 0% 20%) 100%);
+    --gradient-dark: linear-gradient(180deg, hsl(210 40% 98%) 0%, hsl(210 50% 95%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(210 40% 98%) 100%);
+    --gradient-neon-blue: linear-gradient(135deg, hsl(210 100% 50%) 0%, hsl(220 100% 60%) 100%);
+    --gradient-neon-green: linear-gradient(135deg, hsl(156 75% 40%) 0%, hsl(140 70% 45%) 100%);
 
     /* Shadows */
-    --shadow-card: 0 8px 40px rgba(0, 0, 0, 0.1);
-    --shadow-neon-blue: 0 0 20px rgba(var(--neon-blue-rgb), 0.2);
+    --shadow-card: 0 8px 40px rgba(0, 80, 180, 0.08);
+    --shadow-neon-blue: 0 0 20px rgba(var(--neon-blue-rgb), 0.25);
     --shadow-neon-green: 0 0 20px rgba(var(--neon-green-rgb), 0.2);
     --shadow-neon-red: 0 0 20px rgba(var(--neon-red-rgb), 0.2);
 
     /* Sidebar (keeping for compatibility) */
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 0 0% 5%;
-    --sidebar-primary: 0 85% 50%;
+    --sidebar-foreground: 215 25% 15%;
+    --sidebar-primary: 210 100% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 95%;
-    --sidebar-accent-foreground: 0 0% 5%;
-    --sidebar-border: 0 0% 88%;
-    --sidebar-ring: 0 85% 50%;
+    --sidebar-accent: 210 50% 95%;
+    --sidebar-accent-foreground: 215 25% 15%;
+    --sidebar-border: 210 30% 88%;
+    --sidebar-ring: 210 100% 50%;
   }
 
   .dark {
