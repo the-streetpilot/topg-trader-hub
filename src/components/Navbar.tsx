@@ -14,7 +14,6 @@ const navItems = [
       { label: "Blog", href: "#blog" },
       { label: "Help Center", href: "#help" },
       { label: "About Us", href: "#about" },
-      { label: "Careers", href: "#careers" },
     ],
   },
   { label: "Contact", href: "#contact" },

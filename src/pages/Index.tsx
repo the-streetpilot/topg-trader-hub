@@ -15,7 +15,7 @@ import BackToTop from "@/components/BackToTop";
 import AboutSection from "@/components/AboutSection";
 import BlogSection from "@/components/BlogSection";
 import HelpSection from "@/components/HelpSection";
-import CareersSection from "@/components/CareersSection";
+
 import LegalSection from "@/components/LegalSection";
 import ContactSection from "@/components/ContactSection";
 
@@ -53,7 +53,6 @@ const Index = () => {
           <PricingSection />
           <BlogSection />
           <HelpSection />
-          <CareersSection />
           <LegalSection />
           <FAQSection />
           <ContactSection />
