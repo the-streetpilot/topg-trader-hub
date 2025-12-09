@@ -19,7 +19,6 @@ const footerLinks = {
   support: [
     { label: "Contact Us", href: "#contact" },
     { label: "Help Center", href: "#help" },
-    { label: "Careers", href: "#careers" },
   ],
 };
 
