@@ -111,25 +111,6 @@ const FortressFXSection = () => {
           </div>
         </div>
 
-        {/* Bottom Stats */}
-        <motion.div
-          className="mt-16 glass-card rounded-2xl p-8 grid grid-cols-2 gap-8 sm:grid-cols-4"
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          {[
-            { value: "100K+", label: "Trades Synced" },
-            { value: "99.9%", label: "Uptime" },
-            { value: "<1s", label: "Sync Speed" },
-            { value: "256-bit", label: "Encryption" }
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="text-3xl font-bold gradient-text-blue">{stat.value}</div>
-              <div className="text-sm text-muted-foreground">{stat.label}</div>
-            </div>
-          ))}
-        </motion.div>
       </div>
     </section>
   );
